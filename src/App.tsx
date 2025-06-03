@@ -77,20 +77,20 @@ function App() {
 
   const galleryImages = [
     {
-      url: "https://images.unsplash.com/photo-1621371205896-3082fa811d54?auto=format&fit=crop&q=80",
-      caption: "Modern Design"
+      url: "/resources/white.jpeg",
+      caption: "En Blanco"
     },
     {
-      url: "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&q=80",
-      caption: "Instant Hot Water"
+      url: "/resources/grey.jpeg",
+      caption: "En Gris"
     },
     {
-      url: "https://images.unsplash.com/photo-1616118132534-381148898bb4?auto=format&fit=crop&q=80",
-      caption: "Crystal Clear Water"
+      url: "/resources/black.jpeg",
+      caption: "En Negro"
     },
     {
-      url: "https://images.unsplash.com/photo-1581152309595-c66b6d3da317?auto=format&fit=crop&q=80",
-      caption: "Perfect for Office"
+      url: "/resources/red.jpeg",
+      caption: "En Rojo"
     }
   ];
 
@@ -177,14 +177,6 @@ function App() {
         <div className="absolute inset-0 bg-black bg-opacity-50">
           <div className="container mx-auto px-4 h-full flex items-center">
             <div className="max-w-2xl text-white">
-              <div className="flex items-center gap-6 mb-8">
-                <img 
-                  src="/resources/fountainH2o.jpeg" 
-                  alt="Fountain H2O Logo" 
-                  className="w-32 h-32 object-contain"
-                />
-                <h1 className="text-5xl font-bold">Fountain H2O</h1>
-              </div>
               <h2 className="text-4xl font-bold mb-6">The Future of Water Dispensing</h2>
               <p className="text-xl">Experience the convenience of instant ice-cold and boiling water at your fingertips. Perfect for homes and offices.</p>
             </div>
@@ -280,7 +272,7 @@ function App() {
                 <img 
                   src={image.url} 
                   alt={image.caption}
-                  className="w-full h-64 object-cover transform transition duration-500 group-hover:scale-110"
+                  className="w-full object-cover transform transition duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                   <p className="text-white p-4 font-medium">{image.caption}</p>
