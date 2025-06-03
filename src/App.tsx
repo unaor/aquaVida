@@ -13,6 +13,7 @@ function App() {
 
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,7 +91,7 @@ function App() {
     },
     {
       url: "/resources/red.jpeg",
-      caption: "En Rojo"
+      caption: "en Rojo"
     }
   ];
 
@@ -184,6 +185,81 @@ function App() {
         </div>
       </div>
 
+      {/* Features Section */}
+      <div className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-16">Why Choose Our Water Bar?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {features.map((feature, index) => (
+              <div key={index} className="p-6 bg-gray-50 rounded-lg hover:shadow-lg transition duration-300">
+                <div className="mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Video Section */}
+      <div className="py-20 bg-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-white mb-16">See It In Action</h2>
+          <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
+            <div className="aspect-w-16 aspect-h-9 bg-gray-800">
+              {/* Video placeholder - replace src with actual video URL */}
+              <video
+                className="w-full h-full object-cover"
+                controls
+                poster="/resources/black.jpeg"
+              >
+                <source src="/resources/waterbar_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Gallery Section */}
+      <div className="py-20 bg-gray-100 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-16">Product Gallery</h2>
+          <div className="relative">
+            <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8">
+              {galleryImages.map((image, index) => (
+                <div 
+                  key={index}
+                  className="flex-none w-full snap-center px-4"
+                >
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-xl shadow-xl">
+                    <img 
+                      src={image.url} 
+                      alt={image.caption}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                      <p className="text-white p-8 text-xl font-medium">{image.caption}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center mt-6 gap-2">
+              {galleryImages.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                    currentImageIndex === index ? 'bg-blue-600' : 'bg-gray-300'
+                  }`}
+                  onClick={() => setCurrentImageIndex(index)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Pricing Section */}
       <div className="py-20 bg-white">
         <div className="container mx-auto px-4">
@@ -240,43 +316,6 @@ function App() {
                 >
                   Get Started
                 </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Features Section */}
-      <div className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">Why Choose Our Water Bar?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {features.map((feature, index) => (
-              <div key={index} className="p-6 bg-gray-50 rounded-lg hover:shadow-lg transition duration-300">
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Gallery Section */}
-      <div className="py-20 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">Product Gallery</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {galleryImages.map((image, index) => (
-              <div key={index} className="group relative overflow-hidden rounded-lg shadow-lg">
-                <img 
-                  src={image.url} 
-                  alt={image.caption}
-                  className="w-full object-cover transform transition duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                  <p className="text-white p-4 font-medium">{image.caption}</p>
-                </div>
               </div>
             ))}
           </div>
