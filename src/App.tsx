@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Droplets, Flame, Shield, Leaf, Timer, ThumbsUp, MessageCircle, Plus, Minus, Check } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
@@ -14,6 +14,31 @@ function App() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  const scrollToImage = (index: number) => {
+    if (galleryRef.current) {
+      const scrollWidth = galleryRef.current.scrollWidth;
+      const numImages = galleryImages.length;
+      const scrollTo = (scrollWidth / numImages) * index;
+      galleryRef.current.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth'
+      });
+      setCurrentImageIndex(index);
+    }
+  };
+
+  const handleScroll = () => {
+    if (galleryRef.current) {
+      const scrollPosition = galleryRef.current.scrollLeft;
+      const imageWidth = galleryRef.current.scrollWidth / galleryImages.length;
+      const newIndex = Math.round(scrollPosition / imageWidth);
+      if (newIndex !== currentImageIndex) {
+        setCurrentImageIndex(newIndex);
+      }
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,7 +116,7 @@ function App() {
     },
     {
       url: "/resources/red.jpeg",
-      caption: "en Rojo"
+      caption: "En Rojo"
     }
   ];
 
@@ -226,7 +251,11 @@ function App() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-16">Product Gallery</h2>
           <div className="relative">
-            <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8">
+            <div 
+              ref={galleryRef}
+              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8"
+              onScroll={handleScroll}
+            >
               {galleryImages.map((image, index) => (
                 <div 
                   key={index}
@@ -236,7 +265,7 @@ function App() {
                     <img 
                       src={image.url} 
                       alt={image.caption}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
                       <p className="text-white p-8 text-xl font-medium">{image.caption}</p>
@@ -252,7 +281,7 @@ function App() {
                   className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                     currentImageIndex === index ? 'bg-blue-600' : 'bg-gray-300'
                   }`}
-                  onClick={() => setCurrentImageIndex(index)}
+                  onClick={() => scrollToImage(index)}
                 />
               ))}
             </div>
