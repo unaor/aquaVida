@@ -157,6 +157,7 @@ function App() {
         "Agua fría y caliente",
       ],
       isPopular: false,
+      paymentUrl: "https://checkout.wompi.co/l/hPIr23"
     },
     {
       name: "Premium",
@@ -170,6 +171,7 @@ function App() {
         "Soporte prioritario 24 horas al día, 7 días a la semana",
       ],
       isPopular: true,
+      paymentUrl: "https://checkout.wompi.co/l/K5dD5B"
     },
     {
       name: "Professional",
@@ -184,6 +186,7 @@ function App() {
         "Visitas de mantenimiento trimestrales",
       ],
       isPopular: false,
+      paymentUrl: "https://checkout.wompi.co/l/kg2dke"
     },
   ];
 
@@ -326,6 +329,7 @@ function App() {
                 </ul>
 
                 <button
+                onClick={() => window.location.href = product.paymentUrl}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors duration-200 ${
                     product.isPopular
                       ? "bg-white text-blue-600 hover:bg-blue-50"
