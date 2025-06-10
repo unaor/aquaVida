@@ -46,7 +46,7 @@ function App() {
 
     try {
       await emailjs.send(
-        "aquaFontain",
+        "aquaVida",
         "template_9jul5do",
         {
           to_email: "naoru24@gmail.com",
